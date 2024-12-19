@@ -1,0 +1,170 @@
+/* AdminDashboard.css */
+
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  .admin-dashboard-container {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f4f6f9;
+    color: #343a40;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .dashboard-header {
+    text-align: center;
+    background: linear-gradient(135deg, #007bff, #6610f2);
+    color: white;
+    padding: 40px 20px;
+    border-radius: 0 0 20px 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .dashboard-header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  
+  .dashboard-header .dashboard-subtitle {
+    font-size: 1.2rem;
+    font-weight: 300;
+    opacity: 0.9;
+  }
+  
+  .dashboard-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 10px;
+  }
+  
+  .button-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+    width: 100%;
+    max-width: 1200px;
+  }
+  
+  .dashboard-button {
+    padding: 20px 15px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 12px;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .dashboard-button i {
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+  
+  .dashboard-button:hover {
+    transform: translateY(-5px);
+    opacity: 0.95;
+  }
+  
+  .manage-students { background-color: #007bff; }
+  .manage-staff { background-color: #28a745; }
+  .notifications { background-color: #ffc107; color: #343a40; }
+  .gallery { background-color: #17a2b8; }
+  .events { background-color: #e83e8c; }
+  .fee-overview { background-color: #6f42c1; }
+  .profile { background-color: #343a40; }
+  
+  .info-panel {
+    background-color: white;
+    width: 100%;
+    max-width: 1200px;
+    border-radius: 12px;
+    padding: 20px 30px;
+    margin-top: 30px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  .info-panel h2 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    color: #343a40;
+  }
+  
+  .info-panel ul {
+    list-style: none;
+  }
+  
+  .info-panel ul li {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    color: #555;
+  }
+  
+  .info-panel ul li strong {
+    color: #007bff;
+  }
+  
+  .image-section {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 40px;
+  }
+  
+  .dashboard-image {
+    width: 250px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .dashboard-image:hover {
+    transform: scale(1.05);
+  }
+  
+  .dashboard-footer {
+    background-color: #343a40;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    border-radius: 20px 20px 0 0;
+    margin-top: 40px;
+  }
+  
+  .dashboard-footer p {
+    font-size: 1rem;
+    margin: 0;
+  }
+  
+  @media (max-width: 768px) {
+    .dashboard-header h1 {
+      font-size: 2rem;
+    }
+  
+    .dashboard-header .dashboard-subtitle {
+      font-size: 1rem;
+    }
+  
+    .button-grid {
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    }
+  
+    .info-panel ul li {
+      font-size: 1rem;
+    }
+  }
+  
