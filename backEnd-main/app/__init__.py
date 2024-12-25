@@ -3,14 +3,13 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from flask_migrate import Migrate
 from .config import Config
-from flask_bcrypt import Bcrypt  # Import Bcrypt
+from werkzeug.security import generate_password_hash, check_password_hash  # Updated hashing method
 
 
 
 # Initialize extensions
 db = SQLAlchemy()
 migrate = Migrate()
-bcrypt = Bcrypt()  # Initialize Bcrypt
 
 
 def create_app():
@@ -26,7 +25,6 @@ def create_app():
     # Initialize extensions
     db.init_app(app)
     migrate.init_app(app, db)
-    bcrypt.init_app(app)  # Initialize Bcrypt with the app
 
 
     # Import and register routes

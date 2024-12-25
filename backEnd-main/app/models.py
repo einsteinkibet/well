@@ -1,6 +1,6 @@
 from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
-import bcrypt
+from werkzeug.security import generate_password_hash, check_password_hash
 from . import db
 
 class Term(db.Model):
@@ -32,15 +32,10 @@ class Staff(db.Model):
     classes = db.relationship('Class', back_populates='staff')
 
     def set_password(self, password):
-        """Set password using bcrypt."""
-        self.password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
+        self.password = generate_password_hash(password)
 
     def check_password(self, password):
-        """Check if the password matches."""
-        return bcrypt.checkpw(password.encode('utf-8'), self.password.encode('utf-8'))
-
-    def __repr__(self):
-        return f'<Staff {self.name}>'
+        return check_password_hash(self.password, password)
 # Each student can have many payments, bus payments, and assignments
 class Student(db.Model):
     id = db.Column(db.Integer, primary_key=True)
