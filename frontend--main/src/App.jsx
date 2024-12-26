@@ -22,7 +22,7 @@ const App = () => {
 
           {/* Private routes for various dashboards */}
           <Route
-            path="/admin"
+            path="/AdminDashboard"
             element={
               <PrivateRoute>
                 <RoleBasedRoute role="admin">

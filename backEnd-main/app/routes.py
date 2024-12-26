@@ -52,21 +52,31 @@ def register_staff():
 
 @routes.route('/login', methods=['POST'])
 def login():
-    data = request.get_json()
-    identifier = data.get('identifier')  # admission_number or name
-    password = data.get('password')
-    
-    # Check if it's a student login
-    student = Student.query.filter_by(admission_number=identifier).first()
-    if student and student.check_password(password):
-        return jsonify({"message": "Student login successful"}), 200
+    try:
+        data = request.get_json()
+        identifier = data.get('identifier')  # admission_number or name
+        password = data.get('password')
 
-    # Check for staff login
-    staff = Staff.query.filter_by(name=identifier).first()
-    if staff and staff.check_password(password):
-        return jsonify({"message": "Staff login successful"}), 200
+        if not identifier or not password:
+            return jsonify({"error": "Missing identifier or password"}), 400
 
-    return jsonify({"message": "Invalid credentials"}), 401
+        # Check if it's a student login
+        student = Student.query.filter_by(admission_number=identifier).first()
+        if student and student.check_password(password):
+            return jsonify({"message": "Student login successful", "role": "student"}), 200
+
+        # Check for staff login
+        staff = Staff.query.filter_by(name=identifier).first()
+        if staff and staff.check_password(password):
+            return jsonify({"message": "Staff login successful", "role": staff.role}), 200
+
+        # If no match is found
+        return jsonify({"error": "Invalid credentials"}), 401
+
+    except Exception as e:
+        app.logger.error(f"Error during login: {e}")
+        return jsonify({"error": "Internal server error"}), 500
+    # return jsonify({"message": "Invalid credentials"}), 401
 
 @routes.route('/delete_staff/<int:id>', methods=['DELETE'])
 def delete_staff(id):
@@ -328,3 +338,13 @@ def add_notification():
         }
     })
 
+@routes.route('/staff', methods=['GET'])
+def get_staff():
+    staff_members = Staff.query.all()
+    return jsonify([{
+        'id': staff.id,
+        'name': staff.name,
+        'phone': staff.phone,
+        'role': staff.role,
+        'password':staff.password
+    } for staff in staff_members])

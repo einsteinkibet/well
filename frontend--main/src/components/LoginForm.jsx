@@ -3,33 +3,48 @@ import { useAuth } from '../auth/AuthProvider';
 import { useNavigate } from 'react-router-dom';
 
 const LoginForm = () => {
-  const [username, setUsername] = useState('');
+  const [identifier, setIdentifier] = useState('');
   const [password, setPassword] = useState('');
   const { login } = useAuth();
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-
-    // Call your backend for authentication (mock example)
-    const role = username === 'admin' ? 'admin' : 'student'; // Example logic
-    login(role);
-
-    navigate('/');
+    try {
+      const response = await fetch('http://127.0.0.1:5000/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ identifier, password }),
+      });
+  
+      if (response.ok) {
+        const data = await response.json();
+        login(data.role); // Use the role from the backend response
+        navigate('/');
+      } else {
+        alert('Invalid credentials');
+      }
+    } catch (error) {
+      console.error('Error during login:', error);
+      alert('Something went wrong. Please try again.');
+    }
   };
+  
 
   return (
     <form onSubmit={handleLogin}>
       <input
         type="text"
-        placeholder="Username"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
+        placeholder="name"
+        value={identifier}
+        onChange={(e) => setIdentifier(e.target.value)}
         required
       />
       <input
         type="password"
-        placeholder="Password"t5t
+        placeholder="Password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         required
